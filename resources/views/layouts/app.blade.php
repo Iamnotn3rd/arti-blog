@@ -35,9 +35,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
+                            @auth
                             <a href="{{ url("/articles/add/") }}" class="nav-link text-success">
                                 + Add Article
                             </a>
+                            @endauth
                         </li>
                     </ul>
 
@@ -78,7 +80,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>  
+        </nav>
 
         <main class="py-4">
             @yield('content')

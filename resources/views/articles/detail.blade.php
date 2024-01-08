@@ -5,7 +5,9 @@
     <div class="card my-4">
         <div class="card-body">
             <h5 class="card-title">{{ $article->title }}</h5>
-            <span class="card-subtitle text-muted my-2">{{ $article->created_at->diffForHumans() }}</span>
+            <span class="card-subtitle text-muted my-2">
+                By - {{ $article->user->name }}, {{ $article->created_at->diffForHumans() }}
+            </span>
             <span class="badge bg-dark text-white mx-3 mb-3">{{ $article->category->name }}</span>
             <p class="card-text">{{ $article->body }}</p>
             <a href="{{ url(" /articles/delete/$article->id") }}" class="btn btn-danger">Delete</a>
@@ -19,17 +21,20 @@
         </li>
         @foreach ($article->comments as $comment)
             <li class="list-group-item">
+                <p class="text-muted">By {{ $comment->user->name }}, {{ $comment->created_at->diffForHumans() }}</p>
                 <p class="d-inline-block">{{ $comment->content }}</p>
                 <a href="{{ url("/comments/delete/$comment->id") }}" class="btn btn-outline-danger float-end d-inline-block">Delete</a>
             </li>
         @endforeach
     </ul>
 
+    @auth 
     <form action="{{ url('/comments/add') }}" method="post">
         @csrf
         <input type="hidden" name="article_id" value="{{ $article->id }}">
         <textarea name="content" class="form-control mt-4 mb-2" placeholder="New Comment"></textarea>
         <input type="submit" value="Add Comment" class="btn btn-secondary">
     </form>
+    @endauth
 </div>
 @endsection

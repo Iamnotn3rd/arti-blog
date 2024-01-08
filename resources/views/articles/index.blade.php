@@ -9,13 +9,15 @@
             {{ session('info') }}
         </div>
     @endif
-        
+
     {{ $articles->links() }}
     @foreach ($articles as $article)
     <div class="card my-4">
         <div class="card-body">
             <h5 class="card-title">{{ $article->title }}</h5>
-            <span class="card-subtitle text-muted my-2">{{ $article->created_at->diffForHumans() }}</span>
+            <span class="card-subtitle text-muted my-2">
+                By - {{ $article->user->name }}, {{ $article->created_at->diffForHumans() }}
+            </span>
             <span class="badge bg-dark text-white mx-3 mb-3 text-decoration-none">
                 <a href="/categories/{{ $article->category->name }}">{{ $article->category->name }}</a>
             </span>
